@@ -42,7 +42,7 @@ class Crawler:
         post = posts[randint(0,len(posts)-1)]
         response = {'title': post.find_element(By.CLASS_NAME, 'post-content').find_element(By.TAG_NAME, 'h2').text,
                  'description': post.find_element(By.CLASS_NAME, 'entry').text,
-                 'content': GetContent(post.find_element(By.TAG_NAME, 'a').get_attribute('href')),
+                 'content': GetContent(post.find_element(By.TAG_NAME, 'a').get_attribute('href'))[:10000],
                  }
         
         self.driver.close()
