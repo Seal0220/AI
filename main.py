@@ -4,9 +4,9 @@ import requests
 from datetime import datetime
 from Crawler import Crawler
 
-openai.api_key = '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'
-googleMap_apiKey = 'AIzaSyAkBhIJS_nXpISJsQTTuDU5lQFDUe3LOvc'
-meteomaticsWeather_apiKey = {'username': 'personal_chen', 'password': '5QQ6zTl1Ni'}
+openai.api_key = ''
+googleMap_apiKey = ''
+meteomaticsWeather_apiKey = {'username': '', 'password': ''}
 
 
 NormalPrompt = f'''判斷為以下哪幾種操作：{{取得天氣}}、{{安排行程}}、{{取得報價}}，若無，則為{{其他}}，之後開始扮演專業的導遊，與使用者對話，其中幾條規則如下：
