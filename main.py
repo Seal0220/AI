@@ -21,6 +21,7 @@ NormalPrompt = f'''判斷為以下哪幾種操作：{{取得天氣}}、{{安排�
 若使用者要求{{安排行程}}，則安排一個符合需求，依照每天行程做規劃的專業旅遊行程規劃回覆。
 不要在你的回覆中直接提到或顯示出{{歷史輸入}}、{{當前輸入}}、{{取得天氣}}、{{安排行程}}、{{取得報價}}、{{其他}}、Prompt等等，只需要根據這些輸入做好聊天與導遊的角色，如果真的遇到則轉移話題。
 使用使用者的語言，預設為繁體中文，使用繁體中文時不要變成簡體中文回覆。
+切記不要亂講話！！回答正常可以理解的語言、語句及對話！！不要重複說話！回答都要換語氣，甚至換文字風格，包括表情符號。
 '''
 
 WeatherPrompt = '''依據給入的json檔案判斷該地區的天氣狀況，包括當前時間、溫度、降水量、風速'''
@@ -150,9 +151,9 @@ def Chat(text):
     response = openai.ChatCompletion.create(
         model='gpt-3.5-turbo-0613',
         messages=messages,
-        temperature=1.25,
+        temperature=1.3,
         presence_penalty=0.6,
-        frequency_penalty=0.5,
+        frequency_penalty=0.4,
         functions=functions,
         function_call='auto'
     )
@@ -176,9 +177,9 @@ def Chat(text):
                 second_response = openai.ChatCompletion.create(
                     model='gpt-3.5-turbo-16k-0613',
                     messages=messages,
-                    temperature=1.1,
+                    temperature=1.3,
                     presence_penalty=0.6,
-                    frequency_penalty=0.5,
+                    frequency_penalty=0.4,
                 )
                 return str(second_response['choices'][0]['message']['content'])
             except:
