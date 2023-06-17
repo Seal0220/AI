@@ -70,9 +70,9 @@ def Weather(location, unit='攝氏'):
         'location': location,
         'temperature': temperature,
         'unit': unit,
-        'forecast': ['晴天', '風大', '悶熱', '炎熱', '大雨', '小雨', '涼', '冷', '陰天'],
+        'forecast': ['晴天', '陰天'],
     }
-    return json.dumps(weather_info)
+    return json.dumps(weather_info, ensure_ascii=False)
 
 
 def DelCorrupt(text):
@@ -98,7 +98,7 @@ def GetTour(location):
         print('（！！錯誤！！）')
         return '取得行程規劃錯誤，可能為地點錯誤，更換地點等'
 
-    return json.dumps(response)
+    return json.dumps(response, ensure_ascii=False)
 
 
 _datetime = datetime.utcnow()
@@ -109,7 +109,7 @@ def Log():
 
 Allresponse = {}
 def Chat(text):
-    messages_user_content = f'''當前輸入：{text}\n歷史輸入：{(_Allrespons:=str(Allresponse))[(_l:=len(_Allrespons))-3000:_l]}\n當前時間：{datetime.utcnow()}'''
+    messages_user_content = f'''當前輸入：{text}\n歷史輸入：{(_Allrespons:=str(Allresponse))[(_l:=len(_Allrespons))-2000:_l]}\n當前時間：{datetime.utcnow()}'''
     messages = [
         {'role': 'system', 'content': NormalPrompt, 'name': 'IJ'},
         {'role': 'user', 'content': messages_user_content},
@@ -150,9 +150,9 @@ def Chat(text):
     response = openai.ChatCompletion.create(
         model='gpt-3.5-turbo-0613',
         messages=messages,
-        temperature=1.15,
+        temperature=1.25,
         presence_penalty=0.6,
-        frequency_penalty=0.6,
+        frequency_penalty=0.5,
         functions=functions,
         function_call='auto'
     )
@@ -176,13 +176,12 @@ def Chat(text):
                 second_response = openai.ChatCompletion.create(
                     model='gpt-3.5-turbo-16k-0613',
                     messages=messages,
-                    temperature=1,
+                    temperature=1.1,
                     presence_penalty=0.6,
-                    frequency_penalty=0.6,
+                    frequency_penalty=0.5,
                 )
                 return str(second_response['choices'][0]['message']['content'])
-            except Exception as e:
-                print(e)
+            except:
                 return str(msg['content'])
         else:
             return str(msg['content'])
