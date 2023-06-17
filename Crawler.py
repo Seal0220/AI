@@ -34,7 +34,7 @@ class Crawler:
             self.driver.switch_to.window(self.driver.window_handles[-1])
             self.driver.get(url)
             innerPost = BeautifulSoup(self.driver.find_element(By.ID, 'content').find_element(By.CLASS_NAME, 'entry').get_attribute('innerHTML'), 'html.parser')
-            texts = '\n'.join(tag.text for tag in innerPost.find_all())
+            texts = ' '.join(tag.text for tag in innerPost.find_all())
             self.driver.close()
             self.driver.switch_to.window(original_window)
             return texts
@@ -42,7 +42,7 @@ class Crawler:
         post = posts[randint(0,len(posts)-1)]
         response = {'title': post.find_element(By.CLASS_NAME, 'post-content').find_element(By.TAG_NAME, 'h2').text,
                  'description': post.find_element(By.CLASS_NAME, 'entry').text,
-                 'content': GetContent(post.find_element(By.TAG_NAME, 'a').get_attribute('href'))[:10000],
+                 'content': GetContent(post.find_element(By.TAG_NAME, 'a').get_attribute('href'))[:8000],
                  }
         
         self.driver.close()
