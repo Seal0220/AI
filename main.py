@@ -2,8 +2,6 @@ import openai
 import json
 import requests
 from datetime import datetime
-from collections import defaultdict
-
 
 openai.api_key = ''
 googleMap_apiKey = ''
